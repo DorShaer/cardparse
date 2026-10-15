@@ -1,0 +1,13 @@
+# build artifacts
+cardparse
+cardparse-asan
+cardparse-fuzz
+cardparse-afl
+*.o
+
+# fuzzer output
+findings/
+out/
+crash-*
+leak-*
+oom-*
