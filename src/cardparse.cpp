@@ -45,6 +45,13 @@ void load_data(const char *spec) {
 // Write the current card to a path taken from the file.
 // The path is used exactly as supplied.
 void save_card(const Card *c, const char *path) {
+    // Keep exports in the current directory: path components could escape it.
+    if (!path || path[0] == '\0' || strcmp(path, ".") == 0 ||
+        strcmp(path, "..") == 0 || strchr(path, '/') || strchr(path, '\\') ||
+        strchr(path, ':')) {
+        fprintf(stderr, "invalid save path\n");
+        return;
+    }
     FILE *f = fopen(path, "w");
     if (!f) {
         fprintf(stderr, "cannot open %s for writing\n", path);
